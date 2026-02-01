@@ -7,7 +7,6 @@ const TitleCards = ({ title, category }) => {
   const cardsRef = useRef();
 
   const handleWheel = (event) => {
-    event.preventDefault();
 
     const scrollAmount = event.deltaX !== 0 ? event.deltaX : event.deltaY;
 
@@ -31,7 +30,7 @@ const TitleCards = ({ title, category }) => {
       .then((res) => setApiData(res.results))
       .catch((err) => console.error(err));
 
-    cardsRef.current.addEventListener("wheel", handleWheel);
+    cardsRef.current.addEventListener("wheel", handleWheel, { passive: true });
   }, [category]);
 
   return (

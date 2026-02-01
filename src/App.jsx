@@ -14,7 +14,7 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async(user) => {
+    onAuthStateChanged(auth, async(user) => {
       if(user) {
         console.log("Logged In")
         navigate('/')
@@ -23,7 +23,7 @@ const App = () => {
         navigate('/login')
       }
     })
-     return () => unsubscribe()
+     return () => () => {}
   }, [navigate])
 
   return (

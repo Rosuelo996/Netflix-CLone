@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -10,9 +10,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const navigate = useNavigate();
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setAuthChecked(true);
+
       if (!user) {
         navigate("/login");
       }
@@ -20,6 +23,8 @@ const App = () => {
 
     return () => unsubscribe();
   }, []);
+
+  if (!authChecked) return null;
 
   return (
     <div>
